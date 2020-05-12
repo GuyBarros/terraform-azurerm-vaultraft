@@ -111,24 +111,36 @@ echo "ROOT TOKEN: $VAULT_TOKEN"
 sudo systemctl enable vault
 sudo systemctl restart vault
 fi
-sleep 8
+sleep 10
 
 
 
 
-# if [ ${enterprise} == 0 ]
-# then
-# echo "--> OSS - no license necessary"
 
-# else
-# echo "--> Ent - Appyling License"
-# export VAULT_ADDR="http://127.0.0.1:8200"
-# export VAULT_SKIP_VERIFY=true
-# export VAULT_TOKEN=$(cat /tmp/out.txt | grep "Initial Root Token" | sed 's/Initial Root Token: //')
-# echo "ROOT TOKEN: $VAULT_TOKEN"
-# vault write sys/license text=${vaultlicense}
-# echo "--> Ent - License applied"
-# fi
+
+
+echo "--> Waiting for Vault leader"
+while ! curl http://127.0.0.1:8200/v1/sys/health -s --show-error; do
+  echo "Waiting for Vault to be ready"
+  sleep 10
+done
+
+ if [ ${enterprise} == 0 ]
+ then
+ echo "--> OSS - no license necessary"
+
+ else
+ echo "--> Ent - Appyling License"
+ export VAULT_ADDR="http://127.0.0.1:8200"
+ export VAULT_SKIP_VERIFY=true
+ export VAULT_TOKEN=$(cat /tmp/out.txt | grep "Initial Root Token" | sed 's/Initial Root Token: //')
+ echo "ROOT TOKEN: $VAULT_TOKEN"
+ vault write sys/license text=${vaultlicense}
+ echo "--> Ent - License applied"
+ fi
+
+ echo "--> Creating known root token"
+vault token create -policy root -display-name root -id root
 
 
 echo "==> Vault is done!"
