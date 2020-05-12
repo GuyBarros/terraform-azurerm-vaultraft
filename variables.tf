@@ -96,36 +96,56 @@ variable "servers" {
 }
 
 variable "owner" {
-description = "IAM user responsible for lifecycle of cloud resources used for training"
+  description = "IAM user responsible for lifecycle of cloud resources used for training"
 }
 
 variable "created-by" {
-description = "Tag used to identify resources created programmatically by Terraform"
-default     = "Terraform"
+  description = "Tag used to identify resources created programmatically by Terraform"
+  default     = "Terraform"
 }
 
 variable "TTL" {
-description = "Hours after which resource expires, used by reaper. Do not use any unit. -1 is infinite."
-default     = "240"
+  description = "Hours after which resource expires, used by reaper. Do not use any unit. -1 is infinite."
+  default     = "240"
 }
 
 variable "subscription_id" {
-description = "your subscription ID for Vault KMS Auto Unseal"
+  description = "your subscription ID for Vault KMS Auto Unseal"
 }
 
 variable "tenant_id" {
-description = "your tenant ID for Vault KMS Auto Unseal"
+  description = "your tenant ID for Vault KMS Auto Unseal"
 }
 
 variable "client_id" {
-description = "your client ID for Vault KMS Auto Unseal"
+  description = "your client ID for Vault KMS Auto Unseal"
 }
 
 variable "client_secret" {
-description = "your client ID for Vault KMS Auto Unseal"
+  description = "your client ID for Vault KMS Auto Unseal"
 }
 
 variable "namespace" {
-description = "Enterprise License for Consul"
-default     = "vaultraft"
+  description = "Enterprise License for Consul"
+  default     = "vaultraft"
+}
+
+variable "enterprise" {
+  description = "do you want to use the enterprise version of the binaries"
+  default     = false
+}
+
+variable "vaultlicense" {
+  description = "Enterprise License for Vault"
+  default     = ""
+}
+
+variable "vault_url" {
+  description = "The url to download vault."
+  default     = "https://releases.hashicorp.com/vault/1.4.0/vault_1.4.0_linux_amd64.zip"
+}
+
+variable "vault_ent_url" {
+  description = "The url to download vault."
+  default     = "https://releases.hashicorp.com/vault/1.4.0+ent/vault_1.4.0+ent_linux_amd64.zip"
 }

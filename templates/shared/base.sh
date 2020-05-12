@@ -44,17 +44,12 @@ echo "--> Installing common dependencies"
 ssh-apt install \
   build-essential \
   curl \
-  emacs \
   git \
   jq \
-  tmux \
-  unzip \
   vim \
+  unzip \
   wget \
   tree \
-  python3-pip \
-  ruby-full \
-  npm \
   &>/dev/null
 
 
